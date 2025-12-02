@@ -1,0 +1,28 @@
+name: Node Cache Pipeline (sin Node local)
+
+on:
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  test-with-cache:
+    name: Test with npm cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js con cache npm
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      # Instalación de dependencias simulada (no requiere node local)
+      - name: Instalar dependencias simuladas
+        run: echo "Simulando npm install..."
+
+      # Test simulado
+      - name: Ejecutar pruebas simuladas
+        run: echo "Simulando npm test..."
