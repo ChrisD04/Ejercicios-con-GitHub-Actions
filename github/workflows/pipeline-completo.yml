@@ -1,0 +1,49 @@
+name: Pipeline Completo
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  lint:
+    name: Lint Code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Verificar estilo del código
+        run: echo "✅ Running linter..."
+
+  test:
+    name: Run Tests
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Ejecutar pruebas
+        run: echo "✅ Running tests..."
+
+  build:
+    name: Build App
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Build de la aplicación
+        run: echo "✅ Building app..."
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Simular despliegue
+        run: echo "🚀 Deploying to production..."
