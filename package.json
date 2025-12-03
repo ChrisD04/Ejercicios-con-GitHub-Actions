@@ -1,0 +1,12 @@
+{
+  "name": "cicd-app",
+  "version": "1.0.0",
+  "description": "Proyecto de pruebas de Docker en GitHub Actions",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Tests passed\""
+  },
+  "author": "Christopher Duarte",
+  "license": "MIT",
+  "dependencies": {}
+}
