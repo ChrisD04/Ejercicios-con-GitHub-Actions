@@ -1,0 +1,51 @@
+name: Ejercicio 8 - Monitoreo y Debug
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  debug-example:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Clonar repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Paso 2: Habilitar debug detallado
+      - name: Enable step debug
+        run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
+
+      # Paso 3: Mostrar información y logs de debug
+      - name: Debug info
+        run: |
+          echo "::debug::Este es un mensaje de debug"
+          echo "::warning::Este es un warning"
+          echo "::error::Este es un error simulado"
+
+          echo "Directorio actual:"
+          pwd
+
+          echo "Archivos del proyecto:"
+          ls -la
+
+          echo "Variables de entorno:"
+          env | sort
+
+      # Paso 4: ERROR INTENCIONAL 🚨
+      - name: Paso con error intencional
+        run: |
+          echo "Este comando va a fallar..."
+          comando_inexistente_123
+
+      # Paso 5: Debug condicional
+      - name: Conditional debugging
+        if: failure()
+        run: |
+          echo "Entrando en modo debug por fallo"
+          set -x
+          whoami
+          df -h
+          ps aux
